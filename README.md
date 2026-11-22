@@ -62,7 +62,7 @@ Installs cleanly as a signed, free Gateway-scoped Ignition module (`com.antigrav
 - **⚡ Deterministic Cyclic Scan Engine (`CyclicScanEngine`)**
   - Configurable scan period with sub-millisecond multi-subroutine execution (~25–100 µs per full scan).
   - Full parallel branch evaluation (`BST` / `NXB` / `BND`), nested branches, seal-in circuits, and rung-condition-in tracking.
-  - Subroutines & Program Control (`JSR`, `SBR`, `RET`, `JMP`, `LBL`, `MCR`, `ONS`, `OSR`, `OSF`).
+  - Subroutines & Program Control (`JSR`, `SBR`, `RET`, `JMP`, `LBL`, `ONS`, `OSR`, `OSF`, `S:FS`, `AFI`, `NOP`).
   - Add-On Instructions (`AOI`) with isolated local parameters and instance data structures.
 - **🏷️ Native Ignition Managed Tag Provider (`[LadderPLC]`)**
   - Automatically registers `[LadderPLC]ControllerTags/...` with live UDT structures for Timers (`.PRE`, `.ACC`, `.EN`, `.TT`, `.DN`), Counters (`.PRE`, `.ACC`, `.CU`, `.CD`, `.DN`, `.OV`, `.UN`), and PID loops.
@@ -93,15 +93,13 @@ Grab the pre-built, self-signed `.modl` files directly from the [**Latest GitHub
 
 | Category | Instructions | Description |
 | :--- | :--- | :--- |
-| **Bit / Relay Logic** | `XIC`, `XIO`, `OTE`, `OTL`, `OTU`, `ONS`, `OSR`, `OSF` | Examine If Closed/Open, Output Energize, Latch/Unlatch, Rising/Falling One-Shots |
-| **Timers & Counters** | `TON`, `TOF`, `RTO`, `CTU`, `CTD`, `RES` | On-Delay, Off-Delay, Retentive Timer On, Count Up, Count Down, Reset |
-| **Comparison** | `EQU`, `NEQ`, `LES`, `LEQ`, `GRT`, `GEQ`, `LIM`, `MEQ` | Equal, Not Equal, Less/Greater Than, Limit Test, Masked Equal |
-| **Math & Compute** | `ADD`, `SUB`, `MUL`, `DIV`, `MOD`, `SQR`, `SQRT`, `NEG`, `ABS`, `CPT` | Arithmetic operations and free-form expression Compute (`CPT`) |
-| **Advanced Math / Trig** | `SIN`, `COS`, `TAN`, `ASN`, `ACS`, `ATN`, `LN`, `LOG`, `XPY` | Trigonometric, natural/base-10 log, and exponentiation |
-| **Move & Bitwise** | `MOV`, `MVM`, `CLR`, `SWPB`, `AND`, `OR`, `XOR`, `NOT`, `BTD` | Move, Masked Move, Clear, Swap Bytes, Bitwise Logic, Bit Field Distribute |
-| **Array & File** | `COP`, `FLL`, `AVE`, `STD`, `MIN`, `MAX`, `FFL`, `FFU`, `LFL`, `LFU`, `BSL`, `BSR` | Copy/Fill, Statistics, FIFO/LIFO Stacks, Bit Shift Left/Right |
-| **Process Control** | `PID`, `PIDD`, `SCL`, `SCP` | Closed-loop PID & discrete anti-chatter PIDD controller, Scale (`SCL`/`SCP`) |
-| **Program Flow & AOI** | `JSR`, `SBR`, `RET`, `JMP`, `LBL`, `MCR`, `NOP`, `AFI`, `AOI` | Jump to Subroutine, Return, Jump/Label, Master Control Reset, Custom AOIs |
+| **Bit & Relay Logic** | `XIC`, `XIO`, `OTE`, `OTL`, `OTU`, `ONS`, `OSR`, `OSF`, `S:FS`, `AFI`, `NOP` | Examine If Closed/Open, Output Energize, Latch/Unlatch, Rising/Falling One-Shots, First Scan Bit (`S:FS`), Always False (`AFI`), No Operation (`NOP`) |
+| **Parallel Branching** | `BST`, `NXB`, `BND` | Branch Start, Next Branch, Branch End (supports nested parallel branches) |
+| **Timers & Counters** | `TON`, `TOF`, `RTO`, `CTU`, `CTD`, `RES` | On-Delay Timer, Off-Delay Timer, Retentive Timer On, Count Up, Count Down, Reset |
+| **Comparison** | `EQU`, `NEQ`, `GRT`, `GEQ`, `LES`, `LEQ`, `LIM` | Equal, Not Equal, Greater Than, Greater/Equal, Less Than, Less/Equal, Limit Test |
+| **Move & Math** | `MOV`, `CLR`, `ADD`, `SUB`, `MUL`, `DIV` | Move Value, Clear Register/Bit, Add, Subtract, Multiply, Divide |
+| **Process Control (PID)** | `PID`, `PIDD` | Analog Closed-Loop `PID` Controller (0–100% CV) & Digital Time-Proportioned Relay `PIDD` Controller (with anti-chatter dwell delay) |
+| **Program Flow & AOI** | `JSR`, `SBR`, `RET`, `JMP`, `LBL`, `AOI` | Jump to Subroutine, Subroutine Input Parameter, Return, Jump to Label, Label, Custom Add-On Instructions (`AOI`) |
 
 ---
 
