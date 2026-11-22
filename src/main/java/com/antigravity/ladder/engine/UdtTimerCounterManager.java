@@ -134,7 +134,7 @@ public class UdtTimerCounterManager {
         BasicTagConfiguration udt = new BasicTagConfiguration();
         udt.setName("TIMER");
         udt.setType(TagObjectType.UdtType);
-        udt.set(WellKnownTagProps.Documentation, "Studio 5000 style TIMER UDT (PRE, ACC, EN, TT, DN)");
+        udt.set(WellKnownTagProps.Documentation, "Industrial PLC TIMER UDT (PRE, ACC, EN, TT, DN)");
         udt.addChild(memoryMember("PRE", DataType.Int8, 5000L, "Timer Preset (ms)"));
         udt.addChild(memoryMember("ACC", DataType.Int8, 0L, "Timer Accumulated (ms)"));
         udt.addChild(memoryMember("EN", DataType.Boolean, false, "Timer Enable Bit"));
@@ -147,7 +147,7 @@ public class UdtTimerCounterManager {
         BasicTagConfiguration udt = new BasicTagConfiguration();
         udt.setName("COUNTER");
         udt.setType(TagObjectType.UdtType);
-        udt.set(WellKnownTagProps.Documentation, "Studio 5000 style COUNTER UDT (PRE, ACC, CU, CD, DN, OV, UN)");
+        udt.set(WellKnownTagProps.Documentation, "Industrial PLC COUNTER UDT (PRE, ACC, CU, CD, DN, OV, UN)");
         udt.addChild(memoryMember("PRE", DataType.Int8, 100L, "Counter Preset"));
         udt.addChild(memoryMember("ACC", DataType.Int8, 0L, "Counter Accumulated Count"));
         udt.addChild(memoryMember("CU", DataType.Boolean, false, "Count Up Enable Bit"));
@@ -163,7 +163,7 @@ public class UdtTimerCounterManager {
         BasicTagConfiguration udt = new BasicTagConfiguration();
         udt.setName("PID");
         udt.setType(TagObjectType.UdtType);
-        udt.set(WellKnownTagProps.Documentation, "Studio 5000 style PID UDT (PV, SP, CV, KP, KI, KD, ERR, EN)");
+        udt.set(WellKnownTagProps.Documentation, "Industrial PLC PID UDT (PV, SP, CV, KP, KI, KD, ERR, EN)");
         udt.addChild(memoryMember("PV", DataType.Float8, 0.0, "Process Variable"));
         udt.addChild(memoryMember("SP", DataType.Float8, 0.0, "Setpoint"));
         udt.addChild(memoryMember("CV", DataType.Float8, 0.0, "Control Variable Output (0-100%)"));

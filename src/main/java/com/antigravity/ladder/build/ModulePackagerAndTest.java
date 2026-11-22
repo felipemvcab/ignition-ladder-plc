@@ -136,7 +136,7 @@ public class ModulePackagerAndTest {
                 + "\t\t<name>Ladder Logic Studio</name>\n"
                 + "\t\t<id>com.antigravity.ladderplc</id>\n"
                 + "\t\t<version>1.0.0</version>\n"
-                + "\t\t<description>Studio 5000 style Ladder Logic SoftPLC Engine &amp; Live Web IDE with Gateway Tag binding, Subroutines (JSR/SBR/RET), and Dirty-Write Batching.</description>\n"
+                + "\t\t<description>Industrial PLC Ladder Logic SoftPLC Engine &amp; Live Web IDE with Gateway Tag binding, Subroutines (JSR/SBR/RET), and Dirty-Write Batching.</description>\n"
                 + "\t\t<vendorName>Felipe Integrations</vendorName>\n"
                 + "\t\t<requiredIgnitionVersion>" + requiredIgnitionVersion + "</requiredIgnitionVersion>\n"
                 + "\t\t<requiredFrameworkVersion>8</requiredFrameworkVersion>\n"

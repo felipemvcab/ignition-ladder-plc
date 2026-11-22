@@ -39,7 +39,7 @@
       user-select: none;
     }
 
-    /* TOP CONTROLLER BAR (Studio 5000 Light Chrome) */
+    /* TOP CONTROLLER BAR (Ladder Logic Editor Light Chrome) */
     .top-bar {
       background: linear-gradient(180deg, #f3f6fa 0%, #dfe6f0 100%);
       border-bottom: 1px solid var(--border);
@@ -363,7 +363,7 @@
       border-radius: 4px;
     }
 
-    /* LADDER RUNG CANVAS (Studio 5000 Crisp White Sheet) */
+    /* LADDER RUNG CANVAS (Ladder Logic Editor Crisp White Sheet) */
     .ladder-scroll {
       flex: 1;
       overflow-y: auto;
@@ -609,7 +609,7 @@
       border-left-color: var(--power-green);
     }
 
-    /* RUNG AST VISUAL FLOW (STUDIO 5000 TOP-ALIGNED MAIN RUNG + HANGING SUB-BRANCHES) */
+    /* RUNG AST VISUAL FLOW (LADDER LOGIC EDITOR TOP-ALIGNED MAIN RUNG + HANGING SUB-BRANCHES) */
     :root {
       --rung-wire-y: 38px;
     }
@@ -642,7 +642,7 @@
       align-items: flex-start;
     }
 
-    /* PARALLEL BRANCH GROUP (Hangs below the main rung line like Studio 5000) */
+    /* PARALLEL BRANCH GROUP (Hangs below the main rung line like Ladder Logic Editor) */
     .parallel-group {
       display: inline-flex;
       flex-direction: column;
@@ -698,7 +698,7 @@
       display: none;
     }
 
-    /* CONTACT & COIL CELLS (STUDIO 5000 CONTINUOUS WIRE THROUGH SYMBOL) */
+    /* CONTACT & COIL CELLS (LADDER LOGIC EDITOR CONTINUOUS WIRE THROUGH SYMBOL) */
     .ld-contact {
       display: flex;
       flex-direction: column;
@@ -1126,7 +1126,7 @@
     </div>
   </div>
 
-  <!-- STUDIO 5000 DRAG-AND-DROP INSTRUCTION PALETTE TOOLBAR -->
+  <!-- LADDER LOGIC EDITOR DRAG-AND-DROP INSTRUCTION PALETTE TOOLBAR -->
   <div class="palette-bar">
     <div class="inst-group">
       <span class="inst-group-label" title="Drag any instruction onto a rung!">⠿ Bit / Branch</span>
@@ -1258,7 +1258,7 @@
           <button id="undoBtn" class="btn" style="padding:3px 8px; font-size:11px;" onclick="undoRungEdit()" title="Undo (Ctrl+Z)" disabled>↶ Undo</button>
           <button id="redoBtn" class="btn" style="padding:3px 8px; font-size:11px;" onclick="redoRungEdit()" title="Redo (Ctrl+Y)" disabled>↷ Redo</button>
           <span id="editLockBadge" style="display:none; padding:3px 8px; border-radius:4px; font-size:11px; font-weight:700;"></span>
-          <button id="onlineEditModeBtn" class="btn btn-amber" style="padding:3px 9px; font-size:11px;" onclick="toggleOnlineEditMode()" title="Studio 5000 Online Edit Mode: creates a mirrored 'e' rung while the live 'r' rung keeps running untouched until verified &amp; assembled">📝 Online Edit (e/r)</button>
+          <button id="onlineEditModeBtn" class="btn btn-amber" style="padding:3px 9px; font-size:11px;" onclick="toggleOnlineEditMode()" title="Ladder Logic Editor Online Edit Mode: creates a mirrored 'e' rung while the live 'r' rung keeps running untouched until verified &amp; assembled">📝 Online Edit (e/r)</button>
           <button id="cancelEditsBtn" class="btn btn-amber" style="display:none; padding:3px 9px; font-size:11px;" onclick="cancelPendingEdits()" title="Discard pending e/i/d edits">✕ Cancel Edits</button>
           <button id="deleteRoutineBtn" class="btn btn-red" style="display:none;" onclick="deleteCurrentRoutine()">🗑 Delete Subroutine</button>
           <button id="verifyRoutineBtn" class="btn" style="padding:3px 9px; font-size:11px;" onclick="runVerifyRoutine()" title="Verify Routine for missing tags, operands, and syntax errors">✓ Verify</button>
@@ -1266,11 +1266,11 @@
         </div>
       </div>
 
-      <!-- STUDIO 5000 ASCII MNEMONIC BAR (Shown when editing a rung) -->
+      <!-- LADDER LOGIC EDITOR ASCII MNEMONIC BAR (Shown when editing a rung) -->
       <div id="mnemonicEditorBar" class="mnemonic-editor" onclick="event.stopPropagation()" onmousedown="event.stopPropagation()" ondblclick="event.stopPropagation()">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span style="font-size:11px; font-weight:700; color:var(--accent-blue);">
-            ✏️ EDITING RUNG <span id="editRungIndexLabel">0</span> — STUDIO 5000 ASCII MNEMONIC &amp; COMMENT
+            ✏️ EDITING RUNG <span id="editRungIndexLabel">0</span> — LADDER LOGIC EDITOR ASCII MNEMONIC &amp; COMMENT
           </span>
           <span style="font-size:11px; color:var(--text-muted);">
             Syntax: <code>BST XIC Tag1 NXB XIC Tag2 BND XIO StopTag OTE OutTag</code> or <code>JSR SubName</code>
@@ -1298,7 +1298,7 @@
       <!-- MAIN SCROLLABLE AREA -->
       <div id="ladderScrollContainer" class="ladder-scroll"></div>
 
-      <!-- STUDIO 5000 VERIFY / COMPILE ERRORS PANEL -->
+      <!-- LADDER LOGIC EDITOR VERIFY / COMPILE ERRORS PANEL -->
       <div id="verifyOutputPanel" class="verify-panel">
         <div class="verify-panel-header">
           <div style="display:flex; align-items:center; gap:8px;">
@@ -1397,7 +1397,7 @@
       if (u === 'RET' || u === 'NOP' || u === 'AFI' || u === 'JMP' || u === 'LBL') return true;
       if (val.toUpperCase() === 'S:FS' || val === '[LadderPLC]System/S_FS') return true;
 
-      // Numeric literals are valid for Presets, Accumulators, Compare, Math, Move, and Studio 5000 blocks (COP/PID/FLL/etc.)
+      // Numeric literals are valid for Presets, Accumulators, Compare, Math, Move, and Ladder Logic Editor blocks (COP/PID/FLL/etc.)
       if (!isNaN(Number(val))) {
         const isBitOnly = ['XIC', 'XIO', 'OTE', 'OTL', 'OTU', 'ONS', 'OSR', 'OSF', 'RES', 'CLR'].includes(u);
         if (!isBitOnly) return true;
@@ -2227,7 +2227,7 @@
             </div>
           </div>
         `;
-        // Studio 5000 Mirrored Live Running Original ('r') rendered directly underneath the pending 'e' rung!
+        // Ladder Logic Editor Mirrored Live Running Original ('r') rendered directly underneath the pending 'e' rung!
         if (isMirroredPair) {
           const origCanGreen = isStudioOnline;
           const origEnergized = origCanGreen && !!liveOrigRung.powerOut && rungHasOutput(liveOrigRung.ast);
@@ -2283,7 +2283,10 @@
     function renderAstNode(node, rungIdx, pathStr, rungCanShowGreen = false) {
       if (!node) return '';
       if (node.type === 'SERIES') {
-        const children = node.children || [];
+        const rawChildren = node.children || [];
+        const isEmptySingleBranch = (c) => c && c.type === 'PARALLEL'
+          && (!Array.isArray(c.branches) || c.branches.length === 0
+              || (c.branches.length === 1 && (!c.branches[0] || !Array.isArray(c.branches[0].children) || c.branches[0].children.length === 0)));
         const RIGHT_ALIGNED_OUTPUTS = new Set(['OTE', 'OTL', 'OTU', 'TON', 'TOF', 'RTO', 'CTU', 'CTD', 'RES', 'MOV', 'CLR', 'ADD', 'SUB', 'MUL', 'DIV', 'PID', 'PIDD', 'JSR', 'RET', 'JMP', 'AOI']);
         const COIL_OUTPUTS = new Set(['OTE', 'OTL', 'OTU']);
         const isRightAlignedNode = (c) => {
@@ -2294,28 +2297,39 @@
           }
           return false;
         };
-        let trailingCoilStart = children.length;
-        while (trailingCoilStart > 0) {
-          const c = children[trailingCoilStart - 1];
+        // Find effective visible children (ignoring empty single-branch ghost nodes)
+        const visibleIndices = [];
+        rawChildren.forEach((c, idx) => {
+          if (!isEmptySingleBranch(c)) visibleIndices.push(idx);
+        });
+        let trailingPos = visibleIndices.length;
+        while (trailingPos > 0) {
+          const c = rawChildren[visibleIndices[trailingPos - 1]];
           if (pathStr === '' ? isRightAlignedNode(c) : (c && c.type === 'INSTRUCTION' && COIL_OUTPUTS.has((c.instruction || '').toUpperCase()))) {
-            trailingCoilStart--;
+            trailingPos--;
           } else {
             break;
           }
         }
         let parts = [];
         parts.push(renderDropSlot(rungIdx, pathStr, 0, rungCanShowGreen && (node.powerIn ?? true)));
-        children.forEach((c, idx) => {
-          if (idx === trailingCoilStart && trailingCoilStart < children.length) {
-            const wireEn = rungCanShowGreen && !!(idx === 0 ? (node.powerIn ?? true) : children[idx - 1].powerOut);
+        visibleIndices.forEach((origIdx, vPos) => {
+          const c = rawChildren[origIdx];
+          if (vPos === trailingPos && trailingPos < visibleIndices.length) {
+            const prevNode = vPos > 0 ? rawChildren[visibleIndices[vPos - 1]] : null;
+            const wireEn = rungCanShowGreen && !!(vPos === 0 ? (node.powerIn ?? true) : (prevNode && prevNode.powerOut));
             parts.push(`<div class="wire flex-fill ${wireEn ? 'energized' : ''}"></div>`);
           }
-          const childPath = pathStr ? `${pathStr}.children.${idx}` : `children.${idx}`;
+          const childPath = pathStr ? `${pathStr}.children.${origIdx}` : `children.${origIdx}`;
           parts.push(renderAstNode(c, rungIdx, childPath, rungCanShowGreen));
-          parts.push(renderDropSlot(rungIdx, pathStr, idx + 1, rungCanShowGreen && !!c.powerOut));
+          const isFinalCoil = (vPos === visibleIndices.length - 1) && c.type === 'INSTRUCTION' && COIL_OUTPUTS.has((c.instruction || '').toUpperCase());
+          if (!isFinalCoil) {
+            parts.push(renderDropSlot(rungIdx, pathStr, origIdx + 1, rungCanShowGreen && !!c.powerOut));
+          }
         });
-        if (trailingCoilStart === children.length) {
-          const endEn = rungCanShowGreen && (children.length === 0 ? false : !!children[children.length - 1].powerOut);
+        if (trailingPos === visibleIndices.length) {
+          const lastNode = visibleIndices.length > 0 ? rawChildren[visibleIndices[visibleIndices.length - 1]] : null;
+          const endEn = rungCanShowGreen && (lastNode ? !!lastNode.powerOut : false);
           parts.push(`<div class="wire flex-fill ${endEn ? 'energized' : ''}"></div>`);
         }
         return `<div class="series-chain" style="flex:1;">${parts.join('')}</div>`;
@@ -2693,8 +2707,9 @@
         const cdPath = udtMemberPath(normBase, 'CD');
         const resPath = udtMemberPath(normBase, 'RES');
 
+        const isPreNumeric = !isOperandUnassigned(ops[1]) && !isNaN(Number(ops[1]));
         const preTagLive = (!isOperandUnassigned(ops[1]) && isNaN(Number(ops[1]))) ? resolveLiveTagVal(live, ops[1]) : undefined;
-        const pre = preTagLive !== undefined ? preTagLive : (prePath ? (resolveLiveTagVal(live, prePath) ?? ops[1] ?? 0) : (ops[1] ?? 0));
+        const pre = isPreNumeric ? ops[1] : (preTagLive !== undefined ? preTagLive : (prePath ? (resolveLiveTagVal(live, prePath) ?? ops[1] ?? 0) : (ops[1] ?? 0)));
         const acc = accPath ? (resolveLiveTagVal(live, accPath) ?? 0) : 0;
         const dn = dnPath ? !!(live[dnPath]) : false;
         const tt = ttPath ? !!(live[ttPath]) : false;
@@ -2864,7 +2879,7 @@
         const makeGainRow = (lbl, path, val, dt = 'REAL') => `
           <div class="ld-param-row" style="cursor:${path ? 'pointer' : 'default'}; background:rgba(14,165,233,0.06);"
                title="${path ? 'Click to modify ' + lbl + ' (' + escapeHtml(path) + ')' : 'Assign a PID Tag first'}"
-               onclick="event.stopPropagation(); ${path ? `sidebarEditTagValue('${escapeJs(path)}', ${JSON.stringify(String(val ?? 0))}, '${dt}')` : `editNodeOperand(${rungIdx}, '${escapeJs(pathStr)}', 0)`}">
+               onclick="event.stopPropagation(); ${path ? `sidebarEditTagValue('${escapeJs(path)}', '${escapeJs(String(val ?? 0))}', '${dt}')` : `editNodeOperand(${rungIdx}, '${escapeJs(pathStr)}', 0)`}">
             <span class="ld-param-key">${lbl}</span>
             <span class="ld-param-val" style="border-bottom:1px dotted #0284c7; color:#0369a1;">${formatLiveVal(val)} ✎</span>
           </div>
@@ -3711,7 +3726,7 @@
     }
 
     // =========================================================================
-    // STUDIO 5000 VISUAL DRAG-AND-DROP RUNG & AST ENGINE
+    // LADDER LOGIC EDITOR VISUAL DRAG-AND-DROP RUNG & AST ENGINE
     // =========================================================================
 
     function getOperandCountClient(inst) {
@@ -4285,7 +4300,17 @@
             return;
           }
         }
-        children.push(newNode);
+        // Insert before any trailing OTE/OTL/OTU coils so coils always stay on the far right
+        let coilStart = children.length;
+        while (coilStart > 0) {
+          const prev = children[coilStart - 1];
+          if (prev && prev.type === 'INSTRUCTION' && ['OTE', 'OTL', 'OTU'].includes((prev.instruction || '').toUpperCase())) {
+            coilStart--;
+          } else {
+            break;
+          }
+        }
+        children.splice(coilStart, 0, newNode);
         await commitAstMutation(rungIdx);
         return;
       }
@@ -5483,7 +5508,7 @@
           ? `<span style="background:#1e293b; color:#94a3b8; padding:1px 6px; border-radius:4px; font-size:10px;">Unused</span>`
           : `<span style="background:#14532d; color:#86efac; padding:1px 6px; border-radius:4px; font-size:10px;">Used in ${refs.length} rung(s)</span>`;
         const dupWarn = ownerAlreadyUsed
-          ? `<span style="background:#78350f; color:#fde68a; padding:1px 6px; border-radius:4px; font-size:10px;" title="Studio 5000 Warning: another ${activeUdtPickerTarget.inst} already writes to this UDT">⚠ Already owned</span>`
+          ? `<span style="background:#78350f; color:#fde68a; padding:1px 6px; border-radius:4px; font-size:10px;" title="Ladder Logic Editor Warning: another ${activeUdtPickerTarget.inst} already writes to this UDT">⚠ Already owned</span>`
           : '';
 
         return `
@@ -5613,7 +5638,7 @@
     } catch (e) {}
 
     // =========================================================================
-    // STUDIO 5000: UNDO/REDO, ONLINE EDIT, CONTEXT MENU, KEYBOARD, L5X, AOIs
+    // LADDER LOGIC EDITOR: UNDO/REDO, ONLINE EDIT, CONTEXT MENU, KEYBOARD, L5X, AOIs
     // =========================================================================
 
     function selectInstructionNode(rungIdx, pathStr, event) {
@@ -7021,7 +7046,7 @@
           <textarea id="aoiParamsInput" rows="4" spellcheck="false" style="width:100%; background:#0d1117; border:1px solid #334155; color:#38bdf8; padding:8px; border-radius:4px; font-family:monospace; font-size:12px;"></textarea>
         </div>
         <div>
-          <div style="font-size:11px; color:#94a3b8; margin-bottom:4px;">AOI Ladder Rungs (one Studio 5000 ASCII mnemonic rung per line, referencing Parameter names)</div>
+          <div style="font-size:11px; color:#94a3b8; margin-bottom:4px;">AOI Ladder Rungs (one Ladder Logic Editor ASCII mnemonic rung per line, referencing Parameter names)</div>
           <textarea id="aoiRungsInput" rows="5" spellcheck="false" style="width:100%; background:#0d1117; border:1px solid #334155; color:#4ade80; padding:8px; border-radius:4px; font-family:monospace; font-size:12px;"></textarea>
         </div>
       </div>

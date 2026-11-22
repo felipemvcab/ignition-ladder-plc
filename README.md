@@ -2,14 +2,14 @@
 
 # ⚡ Ignition Ladder Logic Studio (`ignition-ladder-plc`)
 
-**Studio 5000-Style Ladder Logic SoftPLC Engine & Browser-Based Web IDE for Inductive Automation's Ignition Platform (8.1 & 8.3)**
+**Industrial Ladder Logic SoftPLC Engine & Browser-Based Ladder Logic Editor for Inductive Automation's Ignition Platform (8.1 & 8.3)**
 
-[![Ignition 8.3](https://img.shields.io/badge/Ignition-8.3%2B-00d4ff?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEzIDJMMiAxNGg3bC0yIDhsMTEtMTJoLTdsMi04eiIvPjwvc3ZnPg==)](https://github.com/felipemvcab/ignition-ladder-plc/releases/latest)
+[![Ignition 8.3](https://img.shields.io/badge/Ignition-8.3%2B-00d4ff?style=for-the-badge)](https://github.com/felipemvcab/ignition-ladder-plc/releases/latest)
 [![Ignition 8.1](https://img.shields.io/badge/Ignition-8.1%2B-3b82f6?style=for-the-badge)](https://github.com/felipemvcab/ignition-ladder-plc/releases/latest)
 [![Release](https://img.shields.io/github/v/release/felipemvcab/ignition-ladder-plc?style=for-the-badge&color=10b981)](https://github.com/felipemvcab/ignition-ladder-plc/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge)](LICENSE)
 
-[**📥 Download Latest Signed `.modl` (v1.0.0)**](https://github.com/felipemvcab/ignition-ladder-plc/releases/latest) • [**🌐 Live Showcase Portal**](https://felipemvcab.github.io/ignition-ladder-plc/) • [**📖 Instruction Set**](#-supported-instruction-set) • [**🚀 Quick Start**](#-installation--quick-start)
+[**📥 Download Latest Signed `.modl` (v1.0.0)**](https://github.com/felipemvcab/ignition-ladder-plc/releases/latest) • [**🌐 Live Showcase Portal**](https://felipemvcab.github.io/ignition-ladder-plc/) • [**📸 Screenshots**](#-screenshots) • [**📖 Instruction Set**](#-supported-instruction-set) • [**🚀 Quick Start**](#-installation--quick-start)
 
 </div>
 
@@ -17,27 +17,61 @@
 
 ## 🔍 Overview
 
-**Ladder Logic Studio** (`com.antigravity.ladderplc`) is a self-contained, zero-dependency **Gateway-scoped SoftPLC module** for Inductive Automation's Ignition SCADA platform. It embeds a deterministic cyclic ladder logic execution engine and a rich, browser-based Studio 5000-style visual Ladder Logic IDE directly inside the Ignition Gateway—requiring no external PLC hardware or desktop IDE.
+**Ladder Logic Studio** (`com.antigravity.ladderplc`) is a self-contained, zero-dependency **Gateway-scoped SoftPLC module** for Inductive Automation's Ignition SCADA platform. It embeds a deterministic cyclic ladder logic execution engine and a rich, browser-based visual **Ladder Logic Editor**—designed with a very similar look and feel to the most common industrial PLC editors—directly inside the Ignition Gateway, requiring no external PLC hardware or desktop IDE.
 
-All controller tags, UDT structures (`TIMER`, `COUNTER`), and Add-On Instruction (`AOI`) instances are automatically synchronized in real time with a dedicated Ignition Managed Tag Provider (`[LadderPLC]`), making every tag immediately browsable and read/write accessible from **Perspective**, **Vision**, **Tag Scripts**, and **OPC-UA**.
+All controller tags, UDT structures (`TIMER`, `COUNTER`, `PID`), and Add-On Instruction (`AOI`) instances are automatically synchronized in real time with a dedicated Ignition Managed Tag Provider (`[LadderPLC]`), making every tag immediately browsable and read/write accessible from **Perspective**, **Vision**, **Tag Scripts**, and **OPC-UA**.
+
+---
+
+## 📸 Screenshots
+
+### 1. Ignition Gateway — Programs & Deterministic Scan Engine Diagnostics (`/app/ladder-programs`)
+Real-time thread architecture, scan duty cycle, zero-allocation AST memory footprint, and dirty-write cache telemetry right inside the Ignition Gateway sidebar:
+
+![Gateway Programs and Diagnostics](docs/screenshots/gateway-programs-diagnostics.png)
+
+### 2. Embedded Ladder Logic Editor (`/system/ladder`)
+Familiar industrial PLC editor look and feel with drag-and-drop instruction palettes, Controller Organizer, live `[LadderPLC]` Tag Browser, online editing (`e/r` rungs), and ASCII mnemonic input:
+
+![Ladder Logic Editor Main Routine](docs/screenshots/ladder-editor-main.png)
+
+### 3. Reusable Add-On Instructions (`AOI` Logic & UDT Sync)
+Create modular, parameterized Add-On Instructions (such as `Motor_HOA`) that automatically synchronize their custom UDT definition with Ignition's Tag Manager:
+
+![Ladder Logic Editor AOI](docs/screenshots/ladder-editor-aoi.png)
+
+### 4. Live Controller & Gateway Tag Monitor + Force Table
+Inspect and write live values across `[LadderPLC]` or `[default]` tag providers and apply hardware/HMI tag forces directly from the browser:
+
+![Live Tag Monitor and Force Table](docs/screenshots/ladder-tag-monitor.png)
+
+### 5. Cross-Reference & Duplicate Coil (`OTE`) Analyzer
+Automatically audits every routine and rung for tag reads, destructive writes, timer/counter UDT usage, and duplicate `OTE` coil warnings:
+
+![Cross Reference and Duplicate Coil Analyzer](docs/screenshots/ladder-cross-reference.png)
+
+### 6. Ignition Gateway Modules Configuration (`/app/platform/system/modules`)
+Installs cleanly as a signed, free Gateway-scoped Ignition module (`com.antigravity.ladderplc`):
+
+![Ignition Gateway Modules Page](docs/screenshots/gateway-modules.png)
 
 ---
 
 ## ✨ Key Features
 
 - **⚡ Deterministic Cyclic Scan Engine (`CyclicScanEngine`)**
-  - Configurable scan period with sub-millisecond multi-subroutine execution (~50–150 µs per full scan).
+  - Configurable scan period with sub-millisecond multi-subroutine execution (~25–100 µs per full scan).
   - Full parallel branch evaluation (`BST` / `NXB` / `BND`), nested branches, seal-in circuits, and rung-condition-in tracking.
   - Subroutines & Program Control (`JSR`, `SBR`, `RET`, `JMP`, `LBL`, `MCR`, `ONS`, `OSR`, `OSF`).
   - Add-On Instructions (`AOI`) with isolated local parameters and instance data structures.
 - **🏷️ Native Ignition Managed Tag Provider (`[LadderPLC]`)**
-  - Automatically registers `[LadderPLC]ControllerTags/...` with live UDT structures for Timers (`.PRE`, `.ACC`, `.EN`, `.TT`, `.DN`) and Counters (`.PRE`, `.ACC`, `.CU`, `.CD`, `.DN`, `.OV`, `.UN`).
+  - Automatically registers `[LadderPLC]ControllerTags/...` with live UDT structures for Timers (`.PRE`, `.ACC`, `.EN`, `.TT`, `.DN`), Counters (`.PRE`, `.ACC`, `.CU`, `.CD`, `.DN`, `.OV`, `.UN`), and PID loops.
   - **Dirty-Write Batching**: Only pushes tag changes to Ignition's Tag Manager when values actually mutate, eliminating tag event bus flooding.
-  - **Hardware / HMI I/O Override & Tag Forcing**: Force any boolean or numeric tag ON/OFF/value from the Web IDE regardless of scan logic.
-- **🖥️ Embedded Studio 5000-Style Web IDE (`/system/ladder`)**
-  - Visual drag-and-drop & mnemonic rung editor with live green power-flow energization rails.
-  - Multi-rung selection (`Shift+Click`), copy/paste, undo/redo, and inline tag value editing.
-  - Built-in **Cross-Reference Browser**, **Tag Watch Table**, **Trend Chart**, and **Routine/AOI Organizer**.
+  - **Hardware / HMI I/O Override & Tag Forcing**: Force any boolean or numeric tag ON/OFF/value from the Ladder Logic Editor regardless of scan logic.
+- **🖥️ Embedded Browser-Based Ladder Logic Editor (`/system/ladder`)**
+  - Familiar look and feel modeled after the most common industrial PLC editors, featuring drag-and-drop and mnemonic rung editing with live green power-flow energization rails.
+  - Multi-rung selection (`Shift+Click`), copy/paste, undo/redo, online edit (`e/r`) mode, and inline tag value editing.
+  - Built-in **Cross-Reference & Duplicate Coil Analyzer**, **Live Tag Monitor & Force Table**, and **Routine/AOI Organizer**.
   - Native **Ignition 8.3 Gateway Sidebar Navigation** (`/app/ladder-programs`) plus standalone Web IDE endpoint (`/system/ladder`).
 - **📦 Dual Ignition 8.3 & 8.1 Compatibility**
   - Signed `.modl` builds provided for both **Ignition 8.3+** (`jakarta.servlet`, Java 17) and **Ignition 8.1+** (`javax.servlet`, Java 11).
@@ -66,7 +100,7 @@ Grab the pre-built, self-signed `.modl` files directly from the [**Latest GitHub
 | **Advanced Math / Trig** | `SIN`, `COS`, `TAN`, `ASN`, `ACS`, `ATN`, `LN`, `LOG`, `XPY` | Trigonometric, natural/base-10 log, and exponentiation |
 | **Move & Bitwise** | `MOV`, `MVM`, `CLR`, `SWPB`, `AND`, `OR`, `XOR`, `NOT`, `BTD` | Move, Masked Move, Clear, Swap Bytes, Bitwise Logic, Bit Field Distribute |
 | **Array & File** | `COP`, `FLL`, `AVE`, `STD`, `MIN`, `MAX`, `FFL`, `FFU`, `LFL`, `LFU`, `BSL`, `BSR` | Copy/Fill, Statistics, FIFO/LIFO Stacks, Bit Shift Left/Right |
-| **Process Control** | `PID`, `SCL`, `SCP` | Closed-loop PID controller, Scale, and Scale with Parameters (`SCP`) |
+| **Process Control** | `PID`, `PIDD`, `SCL`, `SCP` | Closed-loop PID & discrete anti-chatter PIDD controller, Scale (`SCL`/`SCP`) |
 | **Program Flow & AOI** | `JSR`, `SBR`, `RET`, `JMP`, `LBL`, `MCR`, `NOP`, `AFI`, `AOI` | Jump to Subroutine, Return, Jump/Label, Master Control Reset, Custom AOIs |
 
 ---
@@ -74,10 +108,10 @@ Grab the pre-built, self-signed `.modl` files directly from the [**Latest GitHub
 ## 🚀 Installation & Quick Start
 
 1. **Install the Module**
-   - In your Ignition Gateway web UI, navigate to **Config → System → Modules** (or **Platform → Modules** in Ignition 8.3).
-   - Click **Install or Upgrade a Module...** and upload `LadderLogic-SoftPLC-1.0.0.modl` (for 8.3) or `LadderLogic-SoftPLC-1.0.0-Ignition8.1.modl` (for 8.1).
+   - In your Ignition Gateway web UI, navigate to **Platform → System → Modules** (or **Config → System → Modules** in Ignition 8.1).
+   - Click **Install or Upgrade Module** and upload `LadderLogic-SoftPLC-1.0.0.modl` (for 8.3) or `LadderLogic-SoftPLC-1.0.0-Ignition8.1.modl` (for 8.1).
    - Accept the self-signed certificate from **Felipe Integrations**.
-2. **Open the Ladder Logic Studio Web IDE**
+2. **Open the Ladder Logic Editor**
    - **Ignition 8.3**: Click **Ladder Logic Studio → Programs** in the Gateway navigation sidebar, or visit:
      ```text
      http://<your-gateway-ip>:8088/system/ladder

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ignition Ladder Logic Studio — SoftPLC & Web IDE Module</title>
+  <title>Ignition Ladder Logic Studio — SoftPLC &amp; Ladder Logic Editor Module</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -23,7 +23,7 @@
       line-height: 1.6;
       min-height: 100vh;
     }
-    .container { max-width: 1080px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 3rem 1.5rem; }
     header {
       text-align: center;
       padding: 2.5rem 1rem 3.5rem;
@@ -62,7 +62,7 @@
       -webkit-text-fill-color: transparent;
     }
     .subtitle {
-      max-width: 720px;
+      max-width: 740px;
       margin: 0 auto 2rem;
       color: var(--muted);
       font-size: 1.12rem;
@@ -121,25 +121,35 @@
       gap: 0.5rem;
     }
     .card p { color: var(--muted); font-size: 0.95rem; }
-    .rung-preview {
-      margin-top: 3rem;
-      background: #090d16;
+    .section-title {
+      margin-top: 3.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .shots-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .shot-card {
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 0.9rem;
-      padding: 1.5rem 2rem;
-      font-family: "JetBrains Mono", "Fira Code", monospace;
-      font-size: 0.9rem;
-      overflow-x: auto;
+      overflow: hidden;
     }
-    .rung-title {
+    .shot-card img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+    .shot-caption {
+      padding: 1rem 1.4rem;
       color: var(--muted);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
     }
-    .power-rail { color: var(--accent-green); font-weight: 700; }
-    .tag-name { color: var(--accent); }
+    .shot-caption strong { color: #fff; }
     footer {
       text-align: center;
       margin-top: 4rem;
@@ -161,7 +171,7 @@
       </div>
       <h1>⚡ Ignition Ladder Logic Studio</h1>
       <p class="subtitle">
-        Studio 5000-style Ladder Logic SoftPLC execution engine and live browser-based Web IDE embedded directly inside Inductive Automation's Ignition Gateway.
+        Industrial Ladder Logic SoftPLC execution engine and live browser-based Ladder Logic Editor—with a familiar look and feel similar to the most common industrial PLC editors—embedded directly inside Inductive Automation's Ignition Gateway.
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="https://github.com/felipemvcab/ignition-ladder-plc/releases/download/v1.0.0/LadderLogic-SoftPLC-1.0.0.modl">
@@ -176,24 +186,46 @@
       </div>
     </header>
 
-    <div class="rung-preview">
-      <div class="rung-title">Live Cyclic Scan Engine — Seal-In &amp; Subroutine Dispatch Preview</div>
-      <pre><span class="power-rail">||───┬───[ XIC </span><span class="tag-name">Start_PB</span><span class="power-rail"> ]───┬───[ XIO </span><span class="tag-name">Stop_PB</span><span class="power-rail"> ]───[ XIO </span><span class="tag-name">HighLevel_Alarm</span><span class="power-rail"> ]───( OTE </span><span class="tag-name">Pump1_Run</span><span class="power-rail"> )───||</span>
-<span class="power-rail">||   └───[ XIC </span><span class="tag-name">Pump1_Run</span><span class="power-rail"> ]──┘                                                                   ||</span></pre>
-    </div>
-
     <div class="grid">
       <div class="card">
         <h3>⚡ Deterministic Scan Engine</h3>
-        <p>Sub-millisecond cyclic scan loop supporting nested parallel branches (BST/NXB/BND), subroutines (JSR/SBR/RET), jumps (JMP/LBL), one-shots, PID loops, and custom Add-On Instructions (AOIs).</p>
+        <p>Sub-millisecond cyclic scan loop supporting nested parallel branches (BST/NXB/BND), subroutines (JSR/SBR/RET), jumps (JMP/LBL), one-shots, PID/PIDD loops, and custom Add-On Instructions (AOIs).</p>
       </div>
       <div class="card">
         <h3>🏷️ Managed Tag Provider</h3>
-        <p>Automatically exposes all PLC tags, Timers, and Counters under <code>[LadderPLC]ControllerTags/</code> with dirty-write batching and real-time bidirectional HMI synchronization.</p>
+        <p>Automatically exposes all PLC tags, Timers, Counters, and PIDs under <code>[LadderPLC]</code> with dirty-write batching and real-time bidirectional HMI synchronization.</p>
       </div>
       <div class="card">
-        <h3>🖥️ Embedded Web IDE</h3>
-        <p>Zero-install Studio 5000-style visual ladder editor mounted at <code>/system/ladder</code> with live green power-flow rails, multi-rung Shift-selection, tag forcing, cross-reference, and live trends.</p>
+        <h3>🖥️ Embedded Ladder Logic Editor</h3>
+        <p>Zero-install visual Ladder Logic Editor mounted at <code>/system/ladder</code> with a familiar industrial PLC editor workflow, live green power-flow rails, multi-rung Shift-selection, tag forcing, and cross-reference diagnostics.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">📸 Platform &amp; Ladder Logic Editor Screenshots</h2>
+    <div class="shots-grid">
+      <div class="shot-card">
+        <img src="screenshots/gateway-programs-diagnostics.png" alt="Gateway Programs and Scan Engine Diagnostics" />
+        <div class="shot-caption"><strong>Gateway Sidebar &amp; Deterministic Scan Engine Diagnostics:</strong> View thread architecture, scan duty cycle, zero-allocation AST memory footprint, and dirty-write cache metrics at <code>/app/ladder-programs</code>.</div>
+      </div>
+      <div class="shot-card">
+        <img src="screenshots/ladder-editor-main.png" alt="Embedded Ladder Logic Editor" />
+        <div class="shot-caption"><strong>Embedded Ladder Logic Editor (<code>/system/ladder</code>):</strong> Drag-and-drop instruction toolbar, Controller Organizer, live <code>[LadderPLC]</code> Tag Browser, online editing (<code>e/r</code>), and ASCII mnemonic bar.</div>
+      </div>
+      <div class="shot-card">
+        <img src="screenshots/ladder-editor-aoi.png" alt="Add-On Instruction Editor" />
+        <div class="shot-caption"><strong>Reusable Add-On Instructions (AOI):</strong> Parameterized custom instructions (e.g., <code>Motor_HOA</code>) with automatic UDT synchronization.</div>
+      </div>
+      <div class="shot-card">
+        <img src="screenshots/ladder-tag-monitor.png" alt="Live Tag Monitor and Force Table" />
+        <div class="shot-caption"><strong>Controller &amp; Gateway Tags Live Monitor + Force Table:</strong> Real-time tag inspection, direct writes, and hardware/HMI forcing across <code>[LadderPLC]</code> and <code>[default]</code> providers.</div>
+      </div>
+      <div class="shot-card">
+        <img src="screenshots/ladder-cross-reference.png" alt="Cross Reference and Duplicate Coil Analyzer" />
+        <div class="shot-caption"><strong>Cross-Reference &amp; Duplicate Coil Analyzer:</strong> Inspects every routine and rung for tag reads, destructive writes, timer/counter UDT instances, and duplicate <code>OTE</code> coils.</div>
+      </div>
+      <div class="shot-card">
+        <img src="screenshots/gateway-modules.png" alt="Ignition Gateway Modules Page" />
+        <div class="shot-caption"><strong>Ignition Gateway Modules Configuration:</strong> Signed, free Gateway-scoped module running cleanly on Ignition 8.3.10.</div>
       </div>
     </div>
 

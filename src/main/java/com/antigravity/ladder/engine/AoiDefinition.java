@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Studio 5000 style Add-On Instruction (AOI) Definition backed by an Ignition UDT.
+ * Industrial PLC Add-On Instruction (AOI) Definition backed by an Ignition UDT.
  */
 public class AoiDefinition {
 

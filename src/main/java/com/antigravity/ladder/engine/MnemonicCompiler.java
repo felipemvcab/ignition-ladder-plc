@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Studio 5000 / Logix Designer compatible ASCII Mnemonic Parser & Decompiler.
+ * IEC / PLC compatible ASCII Mnemonic Parser & Decompiler.
  *
  * Supports both classic space-delimited syntax:
  *   BST XIC Start_PB NXB XIC Motor_Run BND XIO Stop_PB OTE Motor_Run
@@ -184,7 +184,7 @@ public class MnemonicCompiler {
                         current.setLength(0);
                     }
                 } else if (c == '[' && parenDepth == 0) {
-                    if (isStudio5000BranchOpen(input, i, current.length())) {
+                    if (isLadderBranchOpen(input, i, current.length())) {
                         if (current.length() > 0) {
                             tokens.add(current.toString());
                             current.setLength(0);
@@ -235,10 +235,10 @@ public class MnemonicCompiler {
     }
 
     /**
-     * Distinguishes Studio 5000 parallel branch '[' (e.g. "[XIC(A) ,XIC(B) ]")
+     * Distinguishes Ladder Logic Editor parallel branch '[' (e.g. "[XIC(A) ,XIC(B) ]")
      * from Ignition tag provider prefix "[LadderPLC]Path" or array index "Arr[0]".
      */
-    private static boolean isStudio5000BranchOpen(String input, int openIdx, int currentLen) {
+    private static boolean isLadderBranchOpen(String input, int openIdx, int currentLen) {
         if (currentLen > 0) {
             // Preceded by identifier without space -> array index like Tag[0]
             return false;

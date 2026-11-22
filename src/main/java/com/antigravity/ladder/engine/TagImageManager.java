@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *  1. Event-driven TagChangeListener input cache (Zero polling overhead during scan)
  *  2. In-memory Scan Image Snapshot (Deterministic synchronous PLC scan semantics)
  *  3. Dirty-Write Output Batching (Only writes to Ignition Gateway tags when a value actually changes)
- *  4. Studio 5000 style Tag Forcing table
+ *  4. Industrial PLC Tag Forcing table
  */
 public class TagImageManager {
 
@@ -91,7 +91,7 @@ public class TagImageManager {
             return "[" + MANAGED_PROVIDER_NAME + "]System/S_FS";
         }
         if (trimmed.startsWith("[")) {
-            // Map Studio 5000 dot notation (e.g. [LadderPLC]LadderLogic/Timers/T1.DN) to Ignition UDT slash notation (/DN)
+            // Map Ladder Logic Editor dot notation (e.g. [LadderPLC]LadderLogic/Timers/T1.DN) to Ignition UDT slash notation (/DN)
             if (!trimmed.startsWith("[" + MANAGED_PROVIDER_NAME + "]") || trimmed.startsWith("[" + MANAGED_PROVIDER_NAME + "]LadderLogic/")) {
                 int lastDot = trimmed.lastIndexOf('.');
                 if (lastDot > 0) {
@@ -308,7 +308,7 @@ public class TagImageManager {
 
     /**
      * Write value during scan: mutates synchronous scanImage immediately (so downstream
-     * rungs see the updated coil/register state just like Studio 5000), and marks
+     * rungs see the updated coil/register state just like Ladder Logic Editor), and marks
      * dirtyOutputs ONLY if the value differs from liveInputCache.
      */
     public void writeValue(String rawPath, Object newValue) {

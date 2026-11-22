@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Deterministic Studio 5000 style Cyclic Scan Engine.
+ * Deterministic Industrial PLC Cyclic Scan Engine.
  * Supports multiple independent Programs (each with Enable/Disable, Rename, Delete,
  * MainRoutine, and Subroutines called via JSR/SBR/RET) on an isolated thread
  * with hardware-style Watchdog protection and dirty-write output flushing.
@@ -1172,7 +1172,7 @@ public class CyclicScanEngine {
 
                 long preset = (!op1.isEmpty() && !op1.equals("?")) ? (long) tagImage.readDouble(op1) : (long) tagImage.readDouble(prePath);
                 tagImage.writeValue(prePath, preset);
-                // Studio 5000 behavior: edge detection uses the counter's own .CU bit in tag memory
+                // Ladder Logic Editor behavior: edge detection uses the counter's own .CU bit in tag memory
                 // so online edits / Assemble & Save never trigger a false rising edge!
                 boolean prevCu = tagImage.readBoolean(cuPath);
                 boolean risingEdge = rungIn && !prevCu;
@@ -1211,7 +1211,7 @@ public class CyclicScanEngine {
 
                 long preset = (!op1.isEmpty() && !op1.equals("?")) ? (long) tagImage.readDouble(op1) : (long) tagImage.readDouble(prePath);
                 tagImage.writeValue(prePath, preset);
-                // Studio 5000 behavior: edge detection uses the counter's own .CD bit in tag memory
+                // Ladder Logic Editor behavior: edge detection uses the counter's own .CD bit in tag memory
                 boolean prevCd = tagImage.readBoolean(cdPath);
                 boolean risingEdge = rungIn && !prevCd;
                 node.lastScanRungIn = rungIn;
