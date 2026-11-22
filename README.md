@@ -60,6 +60,11 @@ Installs cleanly as a signed, free Gateway-scoped Ignition module (`com.felipe.l
 
 ![Ignition Gateway Modules Page](docs/screenshots/gateway-modules.png)
 
+### 7. Hardware Test Bench — ES32A08 (ESP32 Modbus TCP 8-Relay / Digital & Analog I/O Board)
+Example monitoring & I/O hardware connected directly to Ignition via the built-in Modbus TCP driver and controlled through the Ladder Logic Editor:
+
+![ES32A08 ESP32 Modbus I/O Board](docs/screenshots/esp32-plc-board.jpg)
+
 ---
 
 ## ✨ Key Features
