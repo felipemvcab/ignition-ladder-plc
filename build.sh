@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-PROJECT_DIR="/Users/felipe/.gemini/antigravity/scratch/ignition-ladder-plc"
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 JAVA_HOME="/opt/homebrew/opt/openjdk@17"
 JAVAC="$JAVA_HOME/bin/javac"
 JAR="$JAVA_HOME/bin/jar"
@@ -14,7 +14,7 @@ SDK81_DIR="$PROJECT_DIR/sdk-81"
 BUILD_DIR="$PROJECT_DIR/build"
 CLASSES_DIR="$BUILD_DIR/classes"
 CLASSES81_DIR="$BUILD_DIR/classes-81"
-SRC81_DIR="$BUILD_DIR/src-81/com/antigravity/ladder/gateway"
+SRC81_DIR="$BUILD_DIR/src-81/com/felipe/ladder/gateway"
 DIST_DIR="$BUILD_DIR/dist"
 
 rm -rf "$BUILD_DIR"
@@ -22,9 +22,9 @@ mkdir -p "$CLASSES_DIR" "$CLASSES81_DIR" "$SRC81_DIR" "$DIST_DIR"
 
 echo "Compiling Java sources against Ignition 8.3.10 SDK (Gateway Scope)..."
 "$JAVAC" -cp "$CP" -d "$CLASSES_DIR" \
-  "$PROJECT_DIR"/src/main/java/com/antigravity/ladder/engine/*.java \
-  "$PROJECT_DIR"/src/main/java/com/antigravity/ladder/gateway/*.java \
-  "$PROJECT_DIR"/src/main/java/com/antigravity/ladder/build/*.java
+  "$PROJECT_DIR"/src/main/java/com/felipe/ladder/engine/*.java \
+  "$PROJECT_DIR"/src/main/java/com/felipe/ladder/gateway/*.java \
+  "$PROJECT_DIR"/src/main/java/com/felipe/ladder/build/*.java
 
 # Copy web resources into classes directory so they are bundled inside the JAR
 cp -R "$PROJECT_DIR/src/main/resources/web" "$CLASSES_DIR/web"
@@ -35,7 +35,7 @@ MODL_FILE="$DIST_DIR/LadderLogic-SoftPLC-1.0.0.modl"
 "$JAR" --create --file "$JAR_FILE" -C "$CLASSES_DIR" com -C "$CLASSES_DIR" web
 
 echo "Running Verification Tests & Packaging Ignition 8.3 .modl..."
-"$JAVA" -cp "$CLASSES_DIR:$CP" com.antigravity.ladder.build.ModulePackagerAndTest "$JAR_FILE" "$MODL_FILE" "8.3.0"
+"$JAVA" -cp "$CLASSES_DIR:$CP" com.felipe.ladder.build.ModulePackagerAndTest "$JAR_FILE" "$MODL_FILE" "8.3.0"
 
 # =====================================================================
 # IGNITION 8.1 COMPATIBLE BUILD (Java 11 bytecode + javax.servlet)
@@ -47,7 +47,7 @@ if [ -d "$SDK81_DIR" ] && [ -f "$SDK81_DIR/gateway-api-8.1.50.jar" ]; then
   # Generate 8.1-compatible LadderGatewayHook.java (removes 8.3-only SystemJsModule nav + uses 8.1 ProviderConfiguration)
   python3 -c "
 import re
-src = open('$PROJECT_DIR/src/main/java/com/antigravity/ladder/gateway/LadderGatewayHook.java').read()
+src = open('$PROJECT_DIR/src/main/java/com/felipe/ladder/gateway/LadderGatewayHook.java').read()
 src = src.replace('import com.inductiveautomation.ignition.gateway.web.systemjs.SystemJsModule;\n', '')
 src = src.replace('import com.inductiveautomation.ignition.gateway.tags.managed.ManagedTagProviderConfiguration;', 'import com.inductiveautomation.ignition.gateway.tags.managed.ProviderConfiguration;')
 src = re.sub(r'\n\s*try \{\s*SystemJsModule jsModule[\s\S]*?logger\.error\(\"Failed registering Gateway navigation[^\n]+\n\s*\}', '\n        // Ignition 8.1 mounts the Web IDE servlet directly at /system/ladder', src)
@@ -60,14 +60,14 @@ src = re.sub(r'ManagedTagProviderConfiguration providerConfig = ManagedTagProvid
 open('$SRC81_DIR/LadderGatewayHook.java', 'w').write(src)
 
 # Generate 8.1-compatible LadderStudioServlet.java (javax.servlet.* + 8.1 BasicAuthChallenge)
-srv = open('$PROJECT_DIR/src/main/java/com/antigravity/ladder/gateway/LadderStudioServlet.java').read()
+srv = open('$PROJECT_DIR/src/main/java/com/felipe/ladder/gateway/LadderStudioServlet.java').read()
 srv = srv.replace('import jakarta.servlet.', 'import javax.servlet.')
 srv = srv.replace('new BasicAuthChallenge(username, password).toSimpleAuthChallenge()', 'new BasicAuthChallenge(username, password)')
 open('$SRC81_DIR/LadderStudioServlet.java', 'w').write(srv)
 "
 
   "$JAVAC" --release 11 -cp "$SDK81_DIR/*" -d "$CLASSES81_DIR" \
-    "$PROJECT_DIR"/src/main/java/com/antigravity/ladder/engine/*.java \
+    "$PROJECT_DIR"/src/main/java/com/felipe/ladder/engine/*.java \
     "$SRC81_DIR/LadderGatewayHook.java" \
     "$SRC81_DIR/LadderStudioServlet.java"
 
@@ -79,5 +79,5 @@ open('$SRC81_DIR/LadderStudioServlet.java', 'w').write(srv)
   "$JAR" --create --file "$JAR81_FILE" -C "$CLASSES81_DIR" com -C "$CLASSES81_DIR" web
 
   echo "Packaging & Signing Ignition 8.1 .modl..."
-  "$JAVA" -cp "$CLASSES_DIR:$CP" com.antigravity.ladder.build.ModulePackagerAndTest "$JAR81_FILE" "$MODL81_FILE" "8.1.0" "skipTests"
+  "$JAVA" -cp "$CLASSES_DIR:$CP" com.felipe.ladder.build.ModulePackagerAndTest "$JAR81_FILE" "$MODL81_FILE" "8.1.0" "skipTests"
 fi

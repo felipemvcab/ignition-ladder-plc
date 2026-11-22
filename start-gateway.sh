@@ -18,14 +18,14 @@ fi
 
 # 2. Copy the signed .modl and remove any stale quarantined copy
 rm -f /usr/local/ignition/user-lib/modules/quarantine/LadderLogic* 2>/dev/null || true
-cp /Users/felipe/.gemini/antigravity/scratch/ignition-ladder-plc/build/dist/LadderLogic-SoftPLC-1.0.0.modl /usr/local/ignition/user-lib/modules/LadderLogic-SoftPLC-1.0.0.modl
+cp $(cd "$(dirname "$0")" && pwd)/build/dist/LadderLogic-SoftPLC-1.0.0.modl /usr/local/ignition/user-lib/modules/LadderLogic-SoftPLC-1.0.0.modl
 
 # 3. Register permanent Felipe Integrations certFingerprint in modules.json while Gateway is stopped
 python3 -c '
 import json
 with open("/usr/local/ignition/data/modules.json") as f:
     data = json.load(f)
-data["com.antigravity.ladderplc"] = {
+data["com.felipe.ladderplc"] = {
     "filename": "/usr/local/ignition/user-lib/modules/LadderLogic-SoftPLC-1.0.0.modl",
     "onStartup": "enabled",
     "certFingerprint": "1a19037d66fbf82bbc2403d960d3e039a89bfb5e"
@@ -35,7 +35,7 @@ with open("/usr/local/ignition/data/modules.json", "w") as f:
 '
 
 # 4. Start Gateway with ACCEPT_MODULE_CERTS set so certificate is always trusted
-export ACCEPT_MODULE_CERTS="com.antigravity.ladderplc"
+export ACCEPT_MODULE_CERTS="com.felipe.ladderplc"
 cd /usr/local/ignition
 ./ignition-gateway ./data/ignition.conf \
   wrapper.syslog.ident=Ignition-Gateway \

@@ -1,7 +1,7 @@
-package com.antigravity.ladder.build;
+package com.felipe.ladder.build;
 
-import com.antigravity.ladder.engine.CyclicScanEngine;
-import com.antigravity.ladder.engine.TagImageManager;
+import com.felipe.ladder.engine.CyclicScanEngine;
+import com.felipe.ladder.engine.TagImageManager;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
 import org.bouncycastle.asn1.x509.Extension;
@@ -134,14 +134,14 @@ public class ModulePackagerAndTest {
                 + "<modules>\n"
                 + "\t<module>\n"
                 + "\t\t<name>Ladder Logic Studio</name>\n"
-                + "\t\t<id>com.antigravity.ladderplc</id>\n"
+                + "\t\t<id>com.felipe.ladderplc</id>\n"
                 + "\t\t<version>1.0.0</version>\n"
                 + "\t\t<description>Industrial PLC Ladder Logic SoftPLC Engine &amp; Live Web IDE with Gateway Tag binding, Subroutines (JSR/SBR/RET), and Dirty-Write Batching.</description>\n"
                 + "\t\t<vendorName>Felipe Integrations</vendorName>\n"
                 + "\t\t<requiredIgnitionVersion>" + requiredIgnitionVersion + "</requiredIgnitionVersion>\n"
                 + "\t\t<requiredFrameworkVersion>8</requiredFrameworkVersion>\n"
                 + "\t\t<freeModule>true</freeModule>\n"
-                + "\t\t<hook scope=\"G\">com.antigravity.ladder.gateway.LadderGatewayHook</hook>\n"
+                + "\t\t<hook scope=\"G\">com.felipe.ladder.gateway.LadderGatewayHook</hook>\n"
                 + "\t\t<jar scope=\"G\">" + jarFile.getName() + "</jar>\n"
                 + "\t</module>\n"
                 + "</modules>\n";

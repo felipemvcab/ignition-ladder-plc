@@ -17,9 +17,14 @@
 
 ## 🔍 Overview
 
-**Ladder Logic Studio** (`com.antigravity.ladderplc`) is a self-contained, zero-dependency **Gateway-scoped SoftPLC module** for Inductive Automation's Ignition SCADA platform. It embeds a deterministic cyclic ladder logic execution engine and a rich, browser-based visual **Ladder Logic Editor**—designed with a very similar look and feel to the most common industrial PLC editors—directly inside the Ignition Gateway, requiring no external PLC hardware or desktop IDE.
+**Ladder Logic Studio** (`com.felipe.ladderplc`) is a self-contained, zero-dependency **Gateway-scoped SoftPLC module** for Inductive Automation's Ignition SCADA platform. It embeds a deterministic cyclic ladder logic execution engine and a rich, browser-based visual **Ladder Logic Editor**—designed with a very similar look and feel to the most common industrial PLC editors—directly inside the Ignition Gateway, requiring no external PLC hardware or desktop IDE.
 
 All controller tags, UDT structures (`TIMER`, `COUNTER`, `PID`), and Add-On Instruction (`AOI`) instances are automatically synchronized in real time with a dedicated Ignition Managed Tag Provider (`[LadderPLC]`), making every tag immediately browsable and read/write accessible from **Perspective**, **Vision**, **Tag Scripts**, and **OPC-UA**.
+
+> [!WARNING]
+> **Important Notice & Disclaimer**
+> - **Not Supported by Inductive Automation:** This is an independent community module and is **not** an official product of, nor supported or endorsed by, Inductive Automation.
+> - **Do Not Use in Real-Time Production Control Operations:** This module was primarily created with the goal of **integrating monitoring devices logic**, auxiliary status aggregation, simulation, and non-critical supervisory tasks. **Do not use this module for real-time production control or safety-critical operations.** Always thoroughly test and validate in a non-production environment before use.
 
 ---
 
@@ -51,7 +56,7 @@ Automatically audits every routine and rung for tag reads, destructive writes, t
 ![Cross Reference and Duplicate Coil Analyzer](docs/screenshots/ladder-cross-reference.png)
 
 ### 6. Ignition Gateway Modules Configuration (`/app/platform/system/modules`)
-Installs cleanly as a signed, free Gateway-scoped Ignition module (`com.antigravity.ladderplc`):
+Installs cleanly as a signed, free Gateway-scoped Ignition module (`com.felipe.ladderplc`):
 
 ![Ignition Gateway Modules Page](docs/screenshots/gateway-modules.png)
 

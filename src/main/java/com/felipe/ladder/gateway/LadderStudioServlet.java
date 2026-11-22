@@ -1,9 +1,9 @@
-package com.antigravity.ladder.gateway;
+package com.felipe.ladder.gateway;
 
-import com.antigravity.ladder.engine.AoiDefinition;
-import com.antigravity.ladder.engine.CyclicScanEngine;
-import com.antigravity.ladder.engine.LadderProgram;
-import com.antigravity.ladder.engine.TagImageManager;
+import com.felipe.ladder.engine.AoiDefinition;
+import com.felipe.ladder.engine.CyclicScanEngine;
+import com.felipe.ladder.engine.LadderProgram;
+import com.felipe.ladder.engine.TagImageManager;
 import com.inductiveautomation.ignition.common.gson.Gson;
 import com.inductiveautomation.ignition.common.gson.GsonBuilder;
 import com.inductiveautomation.ignition.common.user.AuthenticatedUser;
@@ -209,11 +209,6 @@ public class LadderStudioServlet extends HttpServlet {
         // Default: Serve the Ladder Logic Studio Web IDE HTML
         resp.setContentType("text/html; charset=UTF-8");
         resp.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-        java.io.File devHtml = new java.io.File("/Users/felipe/.gemini/antigravity/scratch/ignition-ladder-plc/src/main/resources/web/index.html");
-        if (devHtml.exists() && devHtml.canRead()) {
-            resp.getOutputStream().write(java.nio.file.Files.readAllBytes(devHtml.toPath()));
-            return;
-        }
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("web/index.html")) {
             if (in == null) {
                 resp.getWriter().write("<h1>Ladder Logic Studio resource not found</h1>");
