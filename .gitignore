@@ -1,0 +1,17 @@
+# Build outputs
+/build/
+*.class
+
+# Private code-signing keys
+*-key.der
+*.key
+*.pem
+*.p12
+*.jks
+
+# Local SDK caches
+sdk-81/
+
+# macOS / OS files
+.DS_Store
+Thumbs.db

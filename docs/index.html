@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ignition Ladder Logic Studio — SoftPLC & Web IDE Module</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #131a2a;
+      --surface-hover: #1a2438;
+      --border: #23304a;
+      --accent: #00d4ff;
+      --accent-green: #10b981;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #162238 0%, var(--bg) 60%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container { max-width: 1080px; margin: 0 auto; padding: 3rem 1.5rem; }
+    header {
+      text-align: center;
+      padding: 2.5rem 1rem 3.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge-row {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(0, 212, 255, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+    }
+    .pill.green {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-green);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #ffffff, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      max-width: 720px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+      font-size: 1.12rem;
+    }
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: 0.6rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.18s ease;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #06101e;
+      box-shadow: 0 0 24px rgba(0, 212, 255, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); background: #33ddff; }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--surface-hover); border-color: var(--accent); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.9rem;
+      padding: 1.75rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .card:hover {
+      border-color: rgba(0, 212, 255, 0.5);
+      transform: translateY(-3px);
+    }
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.65rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card p { color: var(--muted); font-size: 0.95rem; }
+    .rung-preview {
+      margin-top: 3rem;
+      background: #090d16;
+      border: 1px solid var(--border);
+      border-radius: 0.9rem;
+      padding: 1.5rem 2rem;
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+    .rung-title {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+    .power-rail { color: var(--accent-green); font-weight: 700; }
+    .tag-name { color: var(--accent); }
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge-row">
+        <span class="pill">Ignition 8.3 &amp; 8.1</span>
+        <span class="pill green">Signed .modl v1.0.0</span>
+        <span class="pill">Gateway Scope</span>
+      </div>
+      <h1>⚡ Ignition Ladder Logic Studio</h1>
+      <p class="subtitle">
+        Studio 5000-style Ladder Logic SoftPLC execution engine and live browser-based Web IDE embedded directly inside Inductive Automation's Ignition Gateway.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/felipemvcab/ignition-ladder-plc/releases/download/v1.0.0/LadderLogic-SoftPLC-1.0.0.modl">
+          ⬇ Download for Ignition 8.3 (.modl)
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/felipemvcab/ignition-ladder-plc/releases/download/v1.0.0/LadderLogic-SoftPLC-1.0.0-Ignition8.1.modl">
+          ⬇ Download for Ignition 8.1 (.modl)
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/felipemvcab/ignition-ladder-plc">
+          View on GitHub →
+        </a>
+      </div>
+    </header>
+
+    <div class="rung-preview">
+      <div class="rung-title">Live Cyclic Scan Engine — Seal-In &amp; Subroutine Dispatch Preview</div>
+      <pre><span class="power-rail">||───┬───[ XIC </span><span class="tag-name">Start_PB</span><span class="power-rail"> ]───┬───[ XIO </span><span class="tag-name">Stop_PB</span><span class="power-rail"> ]───[ XIO </span><span class="tag-name">HighLevel_Alarm</span><span class="power-rail"> ]───( OTE </span><span class="tag-name">Pump1_Run</span><span class="power-rail"> )───||</span>
+<span class="power-rail">||   └───[ XIC </span><span class="tag-name">Pump1_Run</span><span class="power-rail"> ]──┘                                                                   ||</span></pre>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>⚡ Deterministic Scan Engine</h3>
+        <p>Sub-millisecond cyclic scan loop supporting nested parallel branches (BST/NXB/BND), subroutines (JSR/SBR/RET), jumps (JMP/LBL), one-shots, PID loops, and custom Add-On Instructions (AOIs).</p>
+      </div>
+      <div class="card">
+        <h3>🏷️ Managed Tag Provider</h3>
+        <p>Automatically exposes all PLC tags, Timers, and Counters under <code>[LadderPLC]ControllerTags/</code> with dirty-write batching and real-time bidirectional HMI synchronization.</p>
+      </div>
+      <div class="card">
+        <h3>🖥️ Embedded Web IDE</h3>
+        <p>Zero-install Studio 5000-style visual ladder editor mounted at <code>/system/ladder</code> with live green power-flow rails, multi-rung Shift-selection, tag forcing, cross-reference, and live trends.</p>
+      </div>
+    </div>
+
+    <footer>
+      Built by <a href="https://github.com/felipemvcab">Felipe Integrations (@felipemvcab)</a> • Open Source under the MIT License
+    </footer>
+  </div>
+</body>
+</html>
